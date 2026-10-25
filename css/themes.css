@@ -512,3 +512,74 @@
   .sheet.smart-page[class*='theme-'] .memory-tip h3 {font-size:14px}
   .sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {font-size:11px}
 }
+
+/* Measured per-theme A4 region map; values injected by layout/theme-regions.js.
+   The illustrated frame is artwork only. Text remains selectable HTML and must
+   never render inside its protected character / planet border zones. */
+.sheet.smart-page[class*='theme-'] > .p-header {
+  left:var(--theme-header-x)!important;
+  top:var(--theme-header-y)!important;
+  width:var(--theme-header-w)!important;
+  height:var(--theme-header-h)!important;
+  right:auto!important;
+}
+.sheet.smart-page[class*='theme-'] > .p-meta {
+  left:var(--theme-meta-x)!important;
+  top:var(--theme-meta-y)!important;
+  width:var(--theme-meta-w)!important;
+  height:var(--theme-meta-h)!important;
+  right:auto!important;
+}
+.sheet.smart-page[class*='theme-'] > .sheet-content {
+  left:var(--theme-content-x)!important;
+  top:var(--theme-content-y)!important;
+  width:var(--theme-content-w)!important;
+  height:var(--theme-content-h)!important;
+  right:auto!important;
+  bottom:auto!important;
+}
+.sheet.smart-page[class*='theme-'] > .memory-tip {
+  left:var(--theme-memo-x)!important;
+  top:var(--theme-memo-y)!important;
+  width:var(--theme-memo-w)!important;
+  height:var(--theme-memo-h)!important;
+  right:auto!important;
+  bottom:auto!important;
+}
+.sheet.smart-page[class*='theme-'] > .sheet-footer {
+  left:var(--theme-footer-x)!important;
+  top:var(--theme-footer-y)!important;
+  width:var(--theme-footer-w)!important;
+  height:var(--theme-footer-h)!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:block;
+}
+.sheet.smart-page.theme-footer-hidden > .sheet-footer {display:none!important}
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section,
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section:first-of-type,
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='1'],
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='2'] {
+  margin-left:var(--section-inset-left,0%)!important;
+  margin-right:var(--section-inset-right,0%)!important;
+  width:calc(100% - var(--section-inset-left,0%) - var(--section-inset-right,0%))!important;
+  min-width:0;
+}
+/* The bottom space section only uses the opening between astronaut + rocket. */
+.sheet.smart-page.theme-space .sheet-section[data-layout-region='zero'] .arithmetic,
+.sheet.smart-page.theme-space .sheet-section[data-layout-region='multi'] .arithmetic {
+  font-size:calc(14px * var(--smart-font-scale,1))!important;
+}
+.sheet.smart-page.theme-space .memory-tip .tip-content {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.sheet.smart-page.theme-space .memory-tip h3 {font-size:16px!important}
+.sheet.smart-page.theme-space .memory-tip .theme-tip-text {font-size:12px!important}
+@media print {
+  .sheet.smart-page.theme-space .sheet-section[data-layout-region='zero'] .arithmetic,
+  .sheet.smart-page.theme-space .sheet-section[data-layout-region='multi'] .arithmetic {font-size:12.2px!important}
+  .sheet.smart-page.theme-space .memory-tip h3 {font-size:14px!important}
+  .sheet.smart-page.theme-space .memory-tip .theme-tip-text {font-size:11px!important}
+}

@@ -1,4 +1,5 @@
 import { balancedPageTargets, applyPageLayout, fitPage } from '../layout/page-layout.js';
+import { applyThemeRegions } from '../layout/theme-regions.js';
 
 const pageTitle = {
   '-': 'Phép trừ có nhớ', '+': 'Phép cộng', '×': 'Phép nhân', '÷': 'Phép chia'
@@ -124,6 +125,7 @@ export function renderWorksheet({ groups, settings, root, assets }) {
     page.innerHTML=`${headerMarkup(settings,assets)}<div class="sheet-content">${pageGroups.map(g=>makeSection(g,settings,assets)).join('')}</div>${guideMarkup(settings,assets)}<div class="sheet-footer">Phiếu ${index+1}/${pages.length}</div>`;
     root.append(page);
     applyPageLayout(page,pageGroups,settings.columns,settings.size);
+    applyThemeRegions(page,settings.theme,pageGroups);
   });
   // Font metrics can change after initial paint. Re-fit when fonts become ready.
   root.querySelectorAll('.sheet.smart-page').forEach(fitPage);
