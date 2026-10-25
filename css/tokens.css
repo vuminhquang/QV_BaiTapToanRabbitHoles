@@ -1,0 +1,7 @@
+:root{--blue:#1874e3;--deep-blue:#1553b1;--ink:#172334;--muted:#64748b;--line:#dce4ef;--canvas:#f7fafc;--paper:#fff;--green:#0da77c;--paper-width:210mm;--paper-height:297mm}
+*{box-sizing:border-box}
+html{font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--canvas);color:var(--ink)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #90c4ff;outline-offset:2px}

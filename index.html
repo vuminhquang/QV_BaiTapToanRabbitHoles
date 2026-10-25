@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1771da">
+  <title>Phiếu Toán Sáng Tạo — Dàn tính A4</title>
+  <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/app.css">
+  <link rel="stylesheet" href="./css/worksheet.css">
+  <link rel="stylesheet" href="./css/print.css">
+  <script type="module" src="./js/main.js"></script>
+</head>
+<body data-assets-base="./assets/">
+  <main class="app" id="app">
+    <aside class="editor" aria-labelledby="editorTitle">
+      <div class="editor-header">
+        <span class="header-icon" aria-hidden="true">✏️</span>
+        <div><h1 id="editorTitle">Tạo bài tập dàn tính</h1><p class="header-highlight">Phép trừ có nhớ – Sáng tạo vượt trội</p><p class="header-detail">Tùy chỉnh – Tự động – In A4 – Có đáp án</p></div>
+      </div>
+      <form id="worksheet-form" class="editor-body">
+        <fieldset>
+          <legend>1. Chọn kiểu bài</legend>
+          <div class="switch-grid" id="operationTabs" role="radiogroup" aria-label="Phép tính">
+            <label class="switch"><input type="radio" name="operation" value="-" checked><span>⊖ Trừ</span></label>
+            <label class="switch"><input type="radio" name="operation" value="+"><span>＋ Cộng</span></label>
+            <label class="switch"><input type="radio" name="operation" value="×"><span>✖ Nhân</span></label>
+            <label class="switch"><input type="radio" name="operation" value="÷"><span>÷ Chia</span></label>
+          </div>
+          <div id="borrowControls" class="checkbox-stack" style="margin-top:12px">
+            <label class="check"><input type="checkbox" id="onlyBorrow" checked><span>Chỉ tạo phép trừ có nhớ (có mượn)</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>2. Độ khó</legend>
+          <div class="switch-grid" id="digitTabs" role="radiogroup" aria-label="Số chữ số">
+            <label class="switch"><input type="radio" name="digits" value="2"><span>2 chữ số</span></label>
+            <label class="switch"><input type="radio" name="digits" value="3" checked><span>3 chữ số</span></label>
+            <label class="switch"><input type="radio" name="digits" value="4"><span>4 chữ số</span></label>
+            <label class="switch"><input type="radio" name="digits" value="mixed"><span>Hỗn hợp</span></label>
+          </div>
+          <div class="checkbox-stack" id="borrowRules" style="margin-top:11px">
+            <label class="check"><input type="checkbox" id="borrowUnit" checked><span>Bắt buộc mượn ở hàng đơn vị</span></label>
+            <label class="check"><input type="checkbox" id="borrowTen"><span>Bắt buộc mượn ở hàng chục</span></label>
+            <label class="check"><input type="checkbox" id="borrowHundred"><span>Bắt buộc mượn ở hàng trăm</span></label>
+            <label class="check"><input type="checkbox" id="variety" checked><span>Đa dạng kiểu mượn (liên tiếp, cách quãng)</span></label>
+          </div>
+          <div class="field" id="modeRow" style="margin-top:10px">
+            <label for="borrowMode">Dạng bài ưu tiên</label>
+            <select id="borrowMode">
+              <option value="mixed">Trộn 3 dạng theo độ khó</option>
+              <option value="one">Mượn đúng một hàng</option>
+              <option value="consecutive">Mượn liên tiếp</option>
+              <option value="zero">Mượn qua số 0</option>
+            </select>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>3. Số lượng bài</legend>
+          <div class="count-row"><input id="countSlider" type="range" min="8" max="40" step="1" value="16" aria-label="Số lượng bài"><input id="count" type="number" min="8" max="40" value="16" aria-label="Nhập số lượng bài"></div>
+          <div class="range-note">8 – 40 bài (tự phân trang A4 khi cần)</div>
+        </fieldset>
+        <fieldset>
+          <legend>4. Bố cục trang A4</legend>
+          <div class="inline-field"><span>Số cột</span><div class="switch-grid small-switch cols-select" role="radiogroup" aria-label="Số cột">
+            <label class="switch"><input type="radio" name="columns" value="2"><span>2</span></label>
+            <label class="switch"><input type="radio" name="columns" value="3"><span>3</span></label>
+            <label class="switch"><input type="radio" name="columns" value="4" checked><span>4</span></label>
+            <label class="switch"><input type="radio" name="columns" value="5"><span>5</span></label>
+          </div></div>
+          <div class="inline-field"><span>Cỡ chữ</span><div class="switch-grid small-switch size-select" role="radiogroup" aria-label="Cỡ chữ">
+            <label class="switch"><input type="radio" name="size" value="small"><span>Nhỏ</span></label>
+            <label class="switch"><input type="radio" name="size" value="medium" checked><span>Vừa</span></label>
+            <label class="switch"><input type="radio" name="size" value="large"><span>Lớn</span></label>
+          </div></div>
+        </fieldset>
+        <fieldset>
+          <legend>5. Kiểu trình bày sáng tạo</legend>
+          <div class="theme-grid" role="radiogroup" aria-label="Phong cách">
+            <label class="theme"><input name="theme" value="classic" type="radio" checked><span class="theme-card"><span class="theme-thumb theme-thumb-classic">56<br><u>− 28</u></span><span>🔵 Cơ bản</span></span></label>
+            <label class="theme"><input name="theme" value="cute" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-cute">🐱</span><span>Khung đẹp</span></span></label>
+            <label class="theme"><input name="theme" value="space" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-space">🚀</span><span>Chủ đề</span></span></label>
+            <label class="theme"><input name="theme" value="garden" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-garden">🏡</span><span>Hình vẽ</span></span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>6. Tùy chọn khác</legend>
+          <div class="checkbox-stack">
+            <label class="check"><input id="showTitle" type="checkbox" checked><span>Hiển thị tiêu đề</span></label>
+            <label class="check"><input id="showIdentity" type="checkbox" checked><span>Hiển thị ngày tháng, họ tên</span></label>
+            <label class="check"><input id="showGuide" type="checkbox" checked><span>Thêm hướng dẫn cách trừ có nhớ</span></label>
+            <label class="check"><input id="showAnswer" type="checkbox" checked><span>Tạo thêm trang đáp án</span></label>
+            <label class="check"><input id="showHints" type="checkbox"><span>Hiện số mượn nhỏ (bản hướng dẫn)</span></label>
+          </div>
+        </fieldset>
+        <div class="editor-actions">
+          <button class="action green" type="submit">⟳ &nbsp;Tạo bài tập mới</button>
+          <div class="action-pair"><button class="action blue" type="button" id="printPage">▣ &nbsp;In trang này</button><button class="action slate" type="button" id="printPdf">⇩ &nbsp;Lưu PDF</button></div>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </form>
+    </aside>
+    <section class="preview-area" aria-label="Xem trước giấy in A4">
+      <div id="pages" class="page-stack"></div>
+    </section>
+  </main>
+</body>
+</html>

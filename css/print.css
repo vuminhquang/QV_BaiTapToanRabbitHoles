@@ -1,0 +1,35 @@
+@page{size:A4 portrait;margin:8mm}
+@media print{
+ html,body{margin:0!important;padding:0!important;background:white!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+ .app{padding:0!important;max-width:none!important;margin:0!important;display:block!important}
+ .editor{display:none!important}
+ .preview-area,.page-stack{display:block!important;margin:0!important;padding:0!important;width:100%!important;overflow:visible!important}
+ .sheet{box-shadow:none!important;border:0!important;width:194mm!important;max-width:none!important;min-height:281mm!important;height:281mm!important;aspect-ratio:auto!important;margin:0!important;padding:3mm 3mm 2mm!important;break-after:page;page-break-after:always;overflow:hidden!important}
+ .sheet:last-child{break-after:auto;page-break-after:auto}
+ .sheet .p-meta{font-size:12px;min-height:34px}
+ .sheet .p-header{min-height:123px;margin-bottom:0}
+ .sheet .heading-title{font-size:26px;padding:6px 15px}
+ .sheet .heading-subtitle{font-size:19px;padding:6px 18px}
+ .sheet .mascot{left:14px;top:5px;width:95px;height:103px}
+ .sheet .speech-bubble{right:0;top:0;font-size:11px;width:114px;min-height:88px;padding:12px 10px}
+ .sheet .pencil{right:-5px;top:64px}
+ .sheet .sheet-section{margin-top:29px;min-height:118px;padding:21px 16px 12px;border-radius:14px}
+ .sheet .sheet-section:first-of-type{margin-top:24px}
+ .sheet .sheet-section .section-pill{height:34px;top:-30px;padding:0 18px;font-size:14px;min-width:196px}
+ .sheet .sheet-section[data-rows="2"]{min-height:205px}
+ .sheet .sheet-section[data-rows="1"]{min-height:110px}
+ .sheet .problem-grid{row-gap:16px}
+ .sheet .problem{min-height:63px}
+ .sheet.problem-small{--problem-size:14px}.sheet.problem-medium{--problem-size:17px}.sheet.problem-large{--problem-size:20px}
+ .sheet .problem-id{min-width:20px;flex-basis:20px}
+ .sheet .section-decor.rocket{width:43px;height:49px}
+ .sheet .section-decor.star{width:34px;height:34px}
+ .sheet .section-decor.cloud{width:42px;height:33px}
+ .sheet .section-decor.leaf{width:39px;height:47px}
+ .sheet .memory-tip{margin-top:16px;min-height:132px;padding:11px;border-radius:14px}
+ .sheet .memory-tip h3{font-size:14px}.sheet .memory-tip ol{font-size:12px;line-height:1.55}
+ .sheet .memory-tip .kid{height:142px;width:102px}
+ .sheet.answer-sheet{padding:5mm!important}
+ .sheet.answer-sheet .answer-grid{font-size:12px;gap:12px 8px}
+ .sheet .sheet-footer{font-size:9px}
+}
