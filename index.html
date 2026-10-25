@@ -31,7 +31,7 @@
             <label class="check"><input type="checkbox" id="onlyBorrow" checked><span>Chỉ tạo phép trừ có nhớ (có mượn)</span></label>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset class="difficulty-fieldset">
           <legend>2. Độ khó</legend>
           <div class="switch-grid" id="digitTabs" role="radiogroup" aria-label="Số chữ số">
             <label class="switch"><input type="radio" name="digits" value="2"><span>2 chữ số</span></label>
@@ -45,15 +45,21 @@
             <label class="check"><input type="checkbox" id="borrowHundred"><span>Bắt buộc mượn ở hàng trăm</span></label>
             <label class="check"><input type="checkbox" id="variety" checked><span>Đa dạng kiểu mượn (liên tiếp, cách quãng)</span></label>
           </div>
-          <div class="field" id="modeRow" style="margin-top:10px">
-            <label for="borrowMode">Dạng bài ưu tiên</label>
-            <select id="borrowMode">
-              <option value="mixed">Trộn 3 dạng theo độ khó</option>
-              <option value="one">Mượn đúng một hàng</option>
-              <option value="consecutive">Mượn liên tiếp</option>
-              <option value="zero">Mượn qua số 0</option>
-            </select>
-          </div>
+          <details class="advanced-panel">
+            <summary title="Các tùy chọn luyện phép trừ nâng cao">⚙ Nâng cao</summary>
+            <div class="advanced-content">
+              <div class="field" id="modeRow">
+                <label for="borrowMode">Dạng bài ưu tiên</label>
+                <select id="borrowMode">
+                  <option value="mixed">Trộn 3 dạng theo độ khó</option>
+                  <option value="one">Mượn đúng một hàng</option>
+                  <option value="consecutive">Mượn liên tiếp</option>
+                  <option value="zero">Mượn qua số 0</option>
+                </select>
+              </div>
+              <label class="check"><input id="showHints" type="checkbox"><span>Hiện số mượn nhỏ trên phiếu</span></label>
+            </div>
+          </details>
         </fieldset>
         <fieldset>
           <legend>3. Số lượng bài</legend>
@@ -78,8 +84,8 @@
           <legend>5. Kiểu trình bày sáng tạo</legend>
           <div class="theme-grid" role="radiogroup" aria-label="Phong cách">
             <label class="theme"><input name="theme" value="classic" type="radio" checked><span class="theme-card"><span class="theme-thumb theme-thumb-classic">56<br><u>− 28</u></span><span>🔵 Cơ bản</span></span></label>
-            <label class="theme"><input name="theme" value="cute" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-cute">🐱</span><span>Khung đẹp</span></span></label>
-            <label class="theme"><input name="theme" value="space" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-space">🚀</span><span>Chủ đề</span></span></label>
+            <label class="theme"><input name="theme" value="cute" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-cute"><img src="./assets/illustrations/mascot-cat.png" alt=""></span><span>Khung đẹp</span></span></label>
+            <label class="theme"><input name="theme" value="space" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-space"><img src="./assets/decorations/rocket.png" alt=""></span><span>Chủ đề</span></span></label>
             <label class="theme"><input name="theme" value="garden" type="radio"><span class="theme-card"><span class="theme-thumb theme-thumb-garden">🏡</span><span>Hình vẽ</span></span></label>
           </div>
         </fieldset>
@@ -90,7 +96,6 @@
             <label class="check"><input id="showIdentity" type="checkbox" checked><span>Hiển thị ngày tháng, họ tên</span></label>
             <label class="check"><input id="showGuide" type="checkbox" checked><span>Thêm hướng dẫn cách trừ có nhớ</span></label>
             <label class="check"><input id="showAnswer" type="checkbox" checked><span>Tạo thêm trang đáp án</span></label>
-            <label class="check"><input id="showHints" type="checkbox"><span>Hiện số mượn nhỏ (bản hướng dẫn)</span></label>
           </div>
         </fieldset>
         <div class="editor-actions">

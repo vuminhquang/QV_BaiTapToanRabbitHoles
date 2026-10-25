@@ -52,3 +52,147 @@ legend{font-weight:800;font-size:16px;margin-bottom:12px;color:#141b26}
 @media(max-width:1100px){.app{grid-template-columns:minmax(320px,410px) minmax(0,1fr);gap:12px}.editor-body{padding:14px}.editor-header{padding:18px 13px}.editor-header h1{font-size:20px}.header-highlight{font-size:14px}.header-detail{font-size:12px}.switch span{font-size:12px}.check{font-size:13px}}
 @media(max-width:920px){.app{display:block;padding:10px}.editor{max-width:780px;margin:0 auto 20px}.preview-area{width:100%;overflow:auto}.page-stack{width:100%}}
 @media(max-width:520px){.editor-header{height:auto;min-height:100px}.editor-header h1{font-size:19px}.editor-header p{font-size:12px}.header-icon{font-size:26px}.editor-body{padding:12px}.theme-grid{gap:3px}.switch-grid{gap:4px}.switch span{height:37px;font-size:11px}.theme-card{font-size:10px}.theme-thumb{height:47px}.inline-field{grid-template-columns:75px 1fr}.check{font-size:13px}}
+
+/* Pixel-aligned rounded typography from the approved worksheet mockup. */
+.editor {font-family:var(--font-ui)}
+.editor-header {gap:14px}
+.editor-header h1 {
+  font-family:var(--font-ui);
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:-.45px;
+  line-height:1.17;
+  margin:0 0 5px;
+}
+.editor-header .header-highlight {
+  font-family:var(--font-ui);
+  font-size:17px;
+  line-height:1.24;
+  font-weight:900;
+  letter-spacing:-.15px;
+  margin-bottom:5px!important;
+}
+.editor-header .header-detail {
+  font-size:15px;
+  line-height:1.25;
+  font-weight:600;
+}
+.header-icon {
+  position:relative;
+  flex:0 0 46px;
+  width:46px;
+  height:52px;
+  margin-top:2px;
+  background:url("../assets/decorations/pencil.svg") center / contain no-repeat;
+  font-size:0;
+}
+.header-icon::before {
+  content:"✦";
+  position:absolute;
+  color:#ffed89;
+  font-size:16px;
+  top:0;
+  left:-6px;
+}
+.header-icon::after {
+  content:"✦";
+  position:absolute;
+  color:#ffffff;
+  font-size:12px;
+  top:32px;
+  right:0;
+}
+.editor-body legend {font-size:16px;font-weight:900;line-height:1.35;letter-spacing:-.12px}
+.editor-body .switch span {font-size:14px;font-weight:650;line-height:1.15}
+.editor-body .switch input:checked+span {font-weight:900}
+.editor-body .check {font-size:15px;font-weight:650;line-height:1.32;letter-spacing:-.12px}
+.editor-body .field select {font-weight:600}
+.editor-body .range-note {font-weight:600}
+.editor-body .theme-card {font-weight:650}
+.editor-body .action {font-weight:900;letter-spacing:-.1px}
+@media (max-width:1100px) {
+  .editor-header h1 {font-size:21px}
+  .editor-header .header-highlight {font-size:15px}
+  .editor-header .header-detail {font-size:13px}
+  .editor-body .check {font-size:14px}
+}
+@media (max-width:520px) {
+  .editor-header h1 {font-size:19px}
+  .header-icon {flex-basis:34px;width:34px;height:40px}
+}
+
+/* Match the 1312px reference: larger, even Vietnamese glyphs and compact groups. */
+.editor-body {padding-top:21px}
+.editor-body fieldset {margin-bottom:23px}
+.editor-body legend {font-size:17px;margin-bottom:11px}
+.editor-body .switch span {font-size:15px}
+.editor-body .check {font-size:16px;line-height:1.28}
+.editor-body .checkbox-stack {gap:12px}
+.editor-body .inline-field>span {font-size:15px}
+.editor-body .range-note {font-size:15px}
+.editor-body .field label {font-size:13px}
+.editor-body .field select {font-size:14px}
+.editor-body .action {font-size:17px}
+.editor-body .theme-card {font-size:13px}
+.difficulty-fieldset {position:relative}
+.advanced-panel {
+  position:absolute;
+  top:0;
+  right:0;
+  z-index:15;
+}
+.advanced-panel>summary {
+  list-style:none;
+  border:1px solid #d7e4f2;
+  border-radius:999px;
+  padding:3px 9px;
+  color:#5a728d;
+  background:#f7fbff;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+}
+.advanced-panel>summary::-webkit-details-marker {display:none}
+.advanced-panel[open] {
+  width:306px;
+  border-radius:10px;
+  background:white;
+  box-shadow:0 10px 26px #203a5b30;
+}
+.advanced-panel[open]>summary {
+  margin:0 0 0 auto;
+  width:max-content;
+  border-color:#8ccaff;
+}
+.advanced-content {
+  display:grid;
+  gap:13px;
+  padding:12px;
+  border:1px solid #d7e4f2;
+  border-radius:0 0 10px 10px;
+  background:white;
+}
+.advanced-content .field {margin:0}
+.advanced-content .check {font-size:13px}
+.theme-thumb img {max-height:52px;max-width:90%;object-fit:contain}
+@media (max-width:520px) {
+  .editor-body {padding-top:16px}
+  .editor-body .switch span {font-size:12px}
+  .editor-body .check {font-size:14px}
+  .advanced-panel[open] {width:min(306px,86vw)}
+}
+
+/* Keep advanced options below the difficulty checks, never over the 'Hỗn hợp' tab. */
+.difficulty-fieldset .advanced-panel {
+  position:static;
+  display:block;
+  width:100%;
+  margin:8px 0 0;
+  text-align:right;
+  background:transparent;
+  box-shadow:none;
+}
+.difficulty-fieldset .advanced-panel>summary {display:inline-block;font-size:11px}
+.difficulty-fieldset .advanced-panel[open] {width:100%;text-align:left}
+.difficulty-fieldset .advanced-content {text-align:left}
+.editor-body .check {font-weight:500}

@@ -12,23 +12,32 @@ const sectionsOrder = { one:'star', consecutive:'rocket', zero:'leaf', multi:'cl
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const src = (assets, path) => assets + path;
 
-function digitHintMarkup(problem) {
-  const text = String(problem.a);
-  const touched = new Set(problem.borrow?.touchedColumns ?? []);
-  const notes = problem.borrow?.workingDigits ?? [];
-  return [...text].map((c,i) => {
-    const col = text.length-1-i;
-    const touchedHere = touched.has(col);
-    return `<span class="borrow-digit ${touchedHere?'has-note':''}">${c}${touchedHere?`<small>${notes[col]}</small>`:''}</span>`;
+function gridDigits(value, places, problem, showHints) {
+  const padded=String(value).padStart(places, ' ');
+  const touched=new Set(problem?.borrow?.touchedColumns ?? []);
+  const notes=problem?.borrow?.workingDigits ?? [];
+  return [...padded].map((digit, index) => {
+    const place=places-1-index;
+    const borrowed=showHints && touched.has(place) && digit!==' ';
+    const content=digit===' ' ? '&nbsp;' : borrowed
+      ? `<span class="borrow-digit has-note">${digit}<small>${notes[place] ?? ''}</small></span>`
+      : digit;
+    return `<span class="arith-cell">${content}</span>`;
   }).join('');
 }
 
 function exerciseMarkup(p, showHints) {
   const canHint=showHints && p.op==='-' && p.borrow?.hasBorrowing;
-  const bottom = p.op==='-'?'−':p.op;
+  const bottom=p.op==='-'?'−':p.op;
+  const places=Math.max(String(p.a).length,String(p.b).length);
   const vertical=p.op==='÷'
     ? `<div class="division-operator"><span class="dividend">${p.a}</span><span class="divisor">${p.b}</span><span class="working"></span><span></span></div>`
-    : `<div class="arithmetic"><div class="arith-top">${canHint?`<span class="borrow-top">${digitHintMarkup(p)}</span>`:p.a}</div><div class="arith-bottom"><span class="arith-sign">${bottom}</span><span>${p.b}</span></div><div class="arith-rule"></div><div class="arith-blank"></div></div>`;
+    : `<div class="arithmetic" style="--places:${places}">
+        <div class="arith-row arith-top"><span class="arith-operator"></span>${gridDigits(p.a,places,p,canHint)}</div>
+        <div class="arith-row arith-bottom"><span class="arith-operator">${bottom}</span>${gridDigits(p.b,places,null,false)}</div>
+        <div class="arith-rule"></div>
+        <div class="arith-row arith-answer" aria-label="Ô viết kết quả"><span class="arith-operator"></span>${Array.from({length:places},()=>'<span class="arith-cell answer-cell">&nbsp;</span>').join('')}</div>
+      </div>`;
   return `<div class="problem ${canHint?'has-hint':''}" aria-label="Câu ${p.number}: ${p.a} ${bottom} ${p.b}"><span class="problem-id">${p.number})</span>${vertical}</div>`;
 }
 

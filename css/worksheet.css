@@ -61,3 +61,165 @@
 .sheet.answer-sheet .answer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px 9px;font-size:14px}
 .sheet.answer-sheet .answer-cell{white-space:nowrap}
 @media(max-width:920px){.sheet{width:210mm;max-width:none;transform-origin:top center}.page-stack{align-items:flex-start;overflow:auto}}
+
+/* Worksheet title, answer headings and arithmetic share one Vietnamese-capable font. */
+.sheet {font-family:var(--font-ui);font-weight:550}
+.sheet .p-meta {font-weight:600;line-height:1.38}
+.sheet .heading-title {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-ui);
+  font-size:33px;
+  min-width:342px;
+  min-height:64px;
+  max-width:78%;
+  line-height:1.12;
+  font-weight:900;
+  letter-spacing:.2px;
+  padding:9px 22px 8px;
+  border-radius:44% 48% 47% 45% / 49% 46% 52% 44%;
+  text-shadow:none;
+  transform:translateX(-12px) rotate(-1deg);
+}
+.sheet .heading-subtitle {
+  font-family:var(--font-ui);
+  font-size:23px;
+  min-width:245px;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1.17;
+  font-weight:900;
+  letter-spacing:-.2px;
+  transform:translateX(-12px);
+}
+.sheet .speech-bubble {font-weight:650;line-height:1.42}
+.sheet .sheet-section .section-pill {
+  font-family:var(--font-ui);
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:-.16px;
+  line-height:1.25;
+}
+.sheet .arithmetic {
+  font-family:var(--font-ui);
+  font-weight:650;
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  letter-spacing:0;
+}
+.sheet .problem-id {font-weight:650}
+.sheet .memory-tip h3 {font-weight:900}
+.sheet .memory-tip ol {font-weight:650}
+.sheet.answer-sheet h2,.sheet.answer-sheet .answers-group h3 {font-family:var(--font-ui);font-weight:900}
+@media print {
+ .sheet .heading-title {font-size:28px;min-width:298px;min-height:50px;padding:6px 14px}
+ .sheet .heading-subtitle {font-size:19px;min-width:218px;min-height:37px;padding:5px 14px}
+ .sheet .sheet-section .section-pill {font-size:14px}
+ .sheet .arithmetic {letter-spacing:0}
+}
+
+/* Fine measurements from full-size 1312 x 1199 Chrome preview comparison. */
+.sheet .p-meta {font-size:16px}
+.sheet .heading-title {
+  width:360px;
+  max-width:78%;
+  min-height:70px;
+  font-size:40px;
+  line-height:1.05;
+  letter-spacing:.1px;
+  border-radius:0;
+  background:transparent url("../assets/decorations/title-brush.svg") center / 100% 100% no-repeat;
+}
+.sheet .heading-subtitle {font-size:23px}
+.sheet .mascot {left:32px;top:29px}
+.sheet .speech-bubble {
+  right:38px;
+  top:17px;
+  width:137px;
+  font-size:15px;
+  line-height:1.45;
+  padding:12px 10px;
+}
+.sheet .pencil {right:29px;top:98px}
+.sheet .sheet-section .section-pill {font-size:18px;min-width:257px}
+.sheet .memory-tip h3 {font-size:18px}
+.sheet .memory-tip ol {font-size:16px;line-height:1.52}
+@media print {
+ .sheet .p-meta {font-size:13px}
+ .sheet .heading-title {width:320px;min-width:320px;min-height:56px;font-size:31px}
+ .sheet .heading-subtitle {font-size:19px}
+ .sheet .mascot {left:16px;top:7px}
+ .sheet .speech-bubble {right:25px;top:8px;font-size:12px;min-height:88px;width:119px}
+ .sheet .pencil {right:17px;top:77px}
+ .sheet .memory-tip h3 {font-size:15px}
+ .sheet .memory-tip ol {font-size:13px}
+}
+
+/* Column-aligned arithmetic grid: each decimal place has its own faint pencil guides. */
+.sheet .arithmetic {
+  display:block;
+  width:max-content;
+  max-width:100%;
+  font-family:var(--font-ui);
+  font-variant-numeric:tabular-nums lining-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  font-weight:600;
+}
+.sheet .arith-row {
+  display:grid;
+  grid-template-columns:1em repeat(var(--places),1.17em);
+  gap:0;
+  align-items:stretch;
+  width:max-content;
+  white-space:nowrap;
+  line-height:1.30;
+}
+.sheet .arith-row .arith-operator {
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  width:1em;
+  font-weight:700;
+}
+.sheet .arith-row .arith-cell {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:1.17em;
+  height:1.30em;
+  font-variant-numeric:tabular-nums;
+  border-left:1px dashed rgba(128,148,168,.33);
+  background-color:rgba(228,236,246,.18);
+  box-shadow:inset 0 -1px 0 rgba(129,151,173,.14);
+}
+.sheet .arith-row .arith-cell:last-child {
+  border-right:1px dashed rgba(128,148,168,.33);
+}
+.sheet .arith-top .arith-cell {border-top:1px dashed rgba(128,148,168,.20)}
+.sheet .arith-bottom .arith-cell {box-shadow:none}
+.sheet .arithmetic .arith-rule {
+  width:100%;
+  height:2px;
+  margin-top:1px;
+  background:#172334;
+}
+.sheet .arith-answer .answer-cell {
+  min-height:1.14em;
+  height:1.14em;
+  background:rgba(227,237,249,.26);
+  box-shadow:inset 0 -1px 0 rgba(124,147,171,.30);
+}
+.sheet .problem.has-hint .arith-top {margin-top:12px}
+.sheet .borrow-digit {display:inline-block;position:relative;width:100%}
+.sheet .borrow-digit small {top:-13px;left:50%}
+@media print {
+  .sheet .arith-row .arith-cell {
+    border-left-color:rgba(135,149,167,.29);
+    background-color:rgba(235,241,247,.20);
+  }
+  .sheet .arith-row .arith-cell:last-child {border-right-color:rgba(135,149,167,.29)}
+  .sheet .arith-answer .answer-cell {background-color:rgba(233,241,249,.25)}
+}
