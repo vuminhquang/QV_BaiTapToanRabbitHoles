@@ -22,10 +22,10 @@
         <fieldset>
           <legend>1. Chọn kiểu bài</legend>
           <div class="switch-grid" id="operationTabs" role="radiogroup" aria-label="Phép tính">
-            <label class="switch"><input type="radio" name="operation" value="-" checked><span>⊖ Trừ</span></label>
-            <label class="switch"><input type="radio" name="operation" value="+"><span>＋ Cộng</span></label>
-            <label class="switch"><input type="radio" name="operation" value="×"><span>✖ Nhân</span></label>
-            <label class="switch"><input type="radio" name="operation" value="÷"><span>÷ Chia</span></label>
+            <label class="switch"><input type="radio" name="operation" value="-" checked><span><img class="operation-icon" src="./assets/icons/operation-subtract.png" alt="">Trừ</span></label>
+            <label class="switch"><input type="radio" name="operation" value="+"><span><img class="operation-icon" src="./assets/icons/operation-add.png" alt="">Cộng</span></label>
+            <label class="switch"><input type="radio" name="operation" value="×"><span><img class="operation-icon" src="./assets/icons/operation-multiply.png" alt="">Nhân</span></label>
+            <label class="switch"><input type="radio" name="operation" value="÷"><span><img class="operation-icon" src="./assets/icons/operation-divide.webp" alt="">Chia</span></label>
           </div>
           <div id="borrowControls" class="checkbox-stack" style="margin-top:12px">
             <label class="check"><input type="checkbox" id="onlyBorrow" checked><span>Chỉ tạo phép trừ có nhớ (có mượn)</span></label>
@@ -99,8 +99,8 @@
           </div>
         </fieldset>
         <div class="editor-actions">
-          <button class="action green" type="submit">⟳ &nbsp;Tạo bài tập mới</button>
-          <div class="action-pair"><button class="action blue" type="button" id="printPage">▣ &nbsp;In trang này</button><button class="action slate" type="button" id="printPdf">⇩ &nbsp;Lưu PDF</button></div>
+          <button class="action green" type="submit"><img class="action-icon" src="./assets/icons/action-regenerate.png" alt="">Tạo bài tập mới</button>
+          <div class="action-pair"><button class="action blue" type="button" id="printPage"><img class="action-icon" src="./assets/icons/action-print.png" alt="">In trang này</button><button class="action slate" type="button" id="printPdf"><img class="action-icon" src="./assets/icons/action-save-pdf.png" alt="">Lưu PDF</button></div>
         </div>
         <div id="status" class="status" role="status" aria-live="polite"></div>
       </form>

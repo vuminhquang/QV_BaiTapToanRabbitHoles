@@ -1,3 +1,5 @@
+import { balancedPageTargets, applyPageLayout, fitPage } from '../layout/page-layout.js';
+
 const pageTitle = {
   '-': 'Phép trừ có nhớ', '+': 'Phép cộng', '×': 'Phép nhân', '÷': 'Phép chia'
 };
@@ -75,18 +77,22 @@ function makeSection(group, settings, assets) {
 }
 
 function splitGroups(groups, capacity) {
+  const total=groups.reduce((sum,g)=>sum+g.items.length,0);
+  const targets=balancedPageTargets(total,capacity);
   const pages=[];
-  let current=[], used=0;
-  for (const group of groups) {
-    let pending=[...group.items];
-    while(pending.length) {
-      if(used>=capacity){pages.push(current);current=[];used=0;}
-      const taking=Math.min(pending.length,capacity-used);
-      current.push({...group, items:pending.splice(0,taking)});
-      used+=taking;
+  const waiting=groups.map(g=>({...g,items:[...g.items]}));
+  let currentGroup=0;
+  for(const target of targets) {
+    const page=[]; let remaining=target;
+    while(remaining>0 && currentGroup<waiting.length) {
+      const group=waiting[currentGroup];
+      const taken=group.items.splice(0,remaining);
+      if(taken.length) page.push({...group,items:taken});
+      remaining-=taken.length;
+      if(!group.items.length)currentGroup++;
     }
+    pages.push(page);
   }
-  if(current.length)pages.push(current);
   return pages;
 }
 
@@ -100,7 +106,11 @@ export function renderWorksheet({ groups, settings, root, assets }) {
     page.setAttribute('aria-label',`Phiếu bài tập trang ${index+1}`);
     page.innerHTML=`${headerMarkup(settings,assets)}<div class="sheet-content">${pageGroups.map(g=>makeSection(g,settings,assets)).join('')}</div>${guideMarkup(settings,assets)}<div class="sheet-footer">Phiếu ${index+1}/${pages.length}</div>`;
     root.append(page);
+    applyPageLayout(page,pageGroups,settings.columns,settings.size);
   });
+  // Font metrics can change after initial paint. Re-fit when fonts become ready.
+  root.querySelectorAll('.sheet.smart-page').forEach(fitPage);
+  document.fonts?.ready?.then(()=>root.querySelectorAll('.sheet.smart-page').forEach(fitPage));
   if(settings.showAnswer){
     const answers=document.createElement('article');
     answers.className='sheet answer-sheet';

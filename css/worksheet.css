@@ -223,3 +223,82 @@
   .sheet .arith-row .arith-cell:last-child {border-right-color:rgba(135,149,167,.29)}
   .sheet .arith-answer .answer-cell {background-color:rgba(233,241,249,.25)}
 }
+
+/* Smart A4 packer: prioritize student writing surface over empty margins. */
+.sheet.smart-page {
+  height:297mm;
+  min-height:297mm;
+  display:flex;
+  flex-direction:column;
+}
+.sheet.smart-page .p-meta,
+.sheet.smart-page .p-header {flex:none}
+.sheet.smart-page .sheet-content {
+  display:flex;
+  flex:1 1 0;
+  min-height:0;
+  flex-direction:column;
+  padding-bottom:10px;
+}
+.sheet.smart-page .sheet-section,
+.sheet.smart-page .sheet-section:first-of-type,
+.sheet.smart-page .sheet-section[data-rows="1"],
+.sheet.smart-page .sheet-section[data-rows="2"] {
+  display:flex;
+  flex-direction:column;
+  flex:var(--section-weight,1) 1 0;
+  min-height:0;
+  margin-top:34px;
+  padding:24px 14px 11px;
+}
+.sheet.smart-page .problem-grid {
+  flex:1 1 0;
+  min-height:0;
+  display:grid;
+  grid-template-rows:repeat(var(--group-rows,1),minmax(0,1fr));
+  row-gap:8px;
+  align-items:stretch;
+}
+.sheet.smart-page .problem {
+  height:100%;
+  min-height:0;
+  align-items:center;
+  padding-block:3px;
+}
+.sheet.smart-page .arithmetic {
+  font-size:calc(var(--problem-size) * var(--smart-font-scale,1));
+}
+.sheet.smart-page .arith-answer .answer-cell {
+  min-height:1.75em;
+  height:1.75em;
+}
+.sheet.smart-page .memory-tip {
+  flex:none;
+  min-height:154px;
+  margin-top:8px;
+  margin-bottom:18px;
+  padding-top:9px;
+  padding-bottom:9px;
+}
+.sheet.smart-page .memory-tip .kid {height:153px}
+.sheet.smart-page.smart-compact .sheet-section {margin-top:27px}
+.sheet.smart-page.smart-compact .memory-tip {min-height:118px}
+@media print {
+ .sheet.smart-page {height:281mm!important;min-height:281mm!important}
+ .sheet.smart-page .sheet-section,
+ .sheet.smart-page .sheet-section:first-of-type,
+ .sheet.smart-page .sheet-section[data-rows="1"],
+ .sheet.smart-page .sheet-section[data-rows="2"] {
+    min-height:0!important;
+    margin-top:26px;
+    padding:18px 12px 8px;
+ }
+ .sheet.smart-page .memory-tip {
+   min-height:108px;
+   max-height:119px;
+   margin-top:6px;
+   margin-bottom:13px;
+ }
+ .sheet.smart-page .memory-tip .kid {height:126px}
+ .sheet.smart-page .arith-answer .answer-cell {min-height:1.45em;height:1.45em}
+}

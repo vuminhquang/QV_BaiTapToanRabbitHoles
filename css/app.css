@@ -196,3 +196,47 @@ legend{font-weight:800;font-size:16px;margin-bottom:12px;color:#141b26}
 .difficulty-fieldset .advanced-panel[open] {width:100%;text-align:left}
 .difficulty-fieldset .advanced-content {text-align:left}
 .editor-body .check {font-weight:500}
+
+/* Dedicated artwork icons replace platform-dependent glyphs. */
+.switch-grid .switch>span {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  font-size:14px;
+}
+.switch-grid .operation-icon {
+  display:block;
+  flex:0 0 auto;
+  width:23px;
+  height:23px;
+  object-fit:contain;
+  pointer-events:none;
+}
+.switch-grid .switch input:checked+span .operation-icon {
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.10));
+}
+.editor-actions .action {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.editor-actions .action-icon {
+  display:block;
+  width:27px;
+  height:27px;
+  flex:none;
+  object-fit:contain;
+  pointer-events:none;
+}
+@media(max-width:600px){
+  .switch-grid .operation-icon {width:18px;height:18px}
+  .editor-actions .action-icon {width:24px;height:24px}
+}
+
+/* On saturated action backgrounds show the asset silhouette in accessible white. */
+.switch-grid .switch input:checked+span .operation-icon,
+.editor-actions .action .action-icon {
+  filter:brightness(0) invert(1);
+}
