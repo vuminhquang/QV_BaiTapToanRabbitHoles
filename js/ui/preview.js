@@ -43,19 +43,36 @@ function exerciseMarkup(p, showHints) {
   return `<div class="problem ${canHint?'has-hint':''}" aria-label="Câu ${p.number}: ${p.a} ${bottom} ${p.b}"><span class="problem-id">${p.number})</span>${vertical}</div>`;
 }
 
+function themeHeading(settings) {
+  const names = {'-':'Phép trừ','+':'Phép cộng','×':'Phép nhân','÷':'Phép chia'};
+  if (settings.operation === '-' && ['2','3','4'].includes(settings.digits)) {
+    const limit = {'2':'100','3':'1 000','4':'10 000'}[settings.digits];
+    return `Phép trừ trong phạm vi ${limit}`;
+  }
+  return 'Luyện tập ' + (names[settings.operation] || 'phép tính').toLowerCase();
+}
+
 function headerMarkup(settings, assets) {
   const showIdentity=settings.showIdentity;
   return `<div class="p-meta">${showIdentity?`<div class="meta-left"><span>Họ tên: .....................................</span><span>Lớp: ...............................</span></div><span>Ngày: ....../....../............</span>`:'<span></span>'}</div>
     <div class="p-header">
       <img class="mascot" src="${src(assets,'illustrations/mascot-cat.png')}" alt="" draggable="false">
-      <div class="heading">${settings.showTitle?'<h2 class="heading-title">BÀI TẬP TOÁN</h2>':''}<div class="heading-subtitle">${esc(pageTitle[settings.operation])}</div></div>
+      <div class="heading">${settings.showTitle?'<h2 class="heading-title">'+esc(settings.theme==='classic'?'BÀI TẬP TOÁN':themeHeading(settings))+'</h2>':''}<div class="heading-subtitle">${esc(pageTitle[settings.operation])}</div></div>
       <div class="speech-bubble">Hãy đặt tính<br>rồi thực hiện<br>phép tính nhé!</div>
       <img class="pencil" src="${src(assets,'decorations/pencil.svg')}" alt="">
     </div>`;
 }
 
+function themeGuideMarkup(settings) {
+  const message = settings.operation === '-'
+    ? 'Trừ từ hàng đơn vị; khi không đủ, mượn 1 ở hàng bên trái.'
+    : 'Đặt các chữ số thẳng cột, tính từ phải sang trái.';
+  return `<aside class="memory-tip theme-tip"><div class="tip-content"><h3>Mẹo nhớ:</h3><p class="theme-tip-text">${esc(message)}</p></div></aside>`;
+}
+
 function guideMarkup(settings, assets) {
   if (!settings.showGuide) return '';
+  return themeGuideMarkup(settings);
   const subtraction=settings.operation==='-';
   const lines = subtraction
     ? ['Đặt tính: Viết các số thẳng cột theo hàng.', 'Bắt đầu trừ từ hàng đơn vị.', 'Nếu số bị trừ nhỏ hơn số trừ thì mượn 1 ở hàng liền trước.', 'Thực hiện phép trừ và viết kết quả.']
@@ -102,7 +119,7 @@ export function renderWorksheet({ groups, settings, root, assets }) {
   root.replaceChildren();
   pages.forEach((pageGroups,index) => {
     const page=document.createElement('article');
-    page.className=`sheet theme-${settings.theme} problem-${settings.size}`;
+    page.className=`sheet theme-${settings.theme} problem-${settings.size} cols-${settings.columns}`;
     page.setAttribute('aria-label',`Phiếu bài tập trang ${index+1}`);
     page.innerHTML=`${headerMarkup(settings,assets)}<div class="sheet-content">${pageGroups.map(g=>makeSection(g,settings,assets)).join('')}</div>${guideMarkup(settings,assets)}<div class="sheet-footer">Phiếu ${index+1}/${pages.length}</div>`;
     root.append(page);

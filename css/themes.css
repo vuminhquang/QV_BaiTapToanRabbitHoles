@@ -1,0 +1,319 @@
+/* Four printable A4 themes — artwork is a separate transparent frame asset.
+   The arithmetic, captions and dates remain native selectable HTML. */
+.sheet.theme-classic { --qv-frame:url('../assets/themes/frames/basic-frame.webp'); --qv-title:#075b9a; --qv-strong:#186eab; --qv-number-bg:#45a4ed; --qv-memo:#145897; }
+.sheet.theme-cute { --qv-frame:url('../assets/themes/frames/cute-frame.webp'); --qv-title:#84222b; --qv-strong:#bb304d; --qv-number-bg:#ff6683; --qv-memo:#e23865; }
+.sheet.theme-space { --qv-frame:url('../assets/themes/frames/space-frame.webp'); --qv-title:#042c72; --qv-strong:#0649ab; --qv-number-bg:#0679ef; --qv-memo:#1248a8; }
+.sheet.theme-garden { --qv-frame:url('../assets/themes/frames/garden-frame.webp'); --qv-title:#593219; --qv-strong:#24662e; --qv-number-bg:#51ae44; --qv-memo:#2c6e37; }
+
+.sheet.smart-page.theme-classic,
+.sheet.smart-page.theme-cute,
+.sheet.smart-page.theme-space,
+.sheet.smart-page.theme-garden {
+  position:relative;
+  isolation:isolate;
+  box-sizing:border-box;
+  overflow:hidden;
+  padding:9mm 22mm 18mm;
+  color:#162347;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+.sheet.smart-page[class*='theme-']::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:var(--qv-frame);
+  background-size:100% 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.sheet.smart-page[class*='theme-'] > * {position:relative;z-index:1}
+
+/* Printed decoration provides the banner, so don't draw a second banner. */
+.sheet.smart-page[class*='theme-'] .p-header {
+  order:0;
+  flex:0 0 32mm;
+  width:100%;
+  min-height:0;
+  padding:4mm 0 0;
+  margin:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.sheet.smart-page[class*='theme-'] .p-header .heading {
+  display:block;
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  transform:none;
+}
+.sheet.smart-page[class*='theme-'] .p-header .heading-title {
+  font-family:var(--font-ui),system-ui,sans-serif;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:-.6px;
+  line-height:1.24;
+  min-width:0;
+  min-height:0;
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:4px 2px;
+  background:none;
+  color:var(--qv-title);
+  text-shadow:none;
+  box-shadow:none;
+  transform:none;
+  border:none;
+  border-radius:0;
+  text-align:center;
+}
+.sheet.smart-page.theme-cute .heading-title {font-size:22px}
+.sheet.smart-page.theme-space .heading-title {font-size:21px}
+.sheet.smart-page.theme-garden .heading-title {font-size:21px}
+.sheet.smart-page[class*='theme-'] .heading-subtitle,
+.sheet.smart-page[class*='theme-'] .mascot,
+.sheet.smart-page[class*='theme-'] .speech-bubble,
+.sheet.smart-page[class*='theme-'] .pencil,
+.sheet.smart-page[class*='theme-'] .section-decor {display:none!important}
+
+.sheet.smart-page[class*='theme-'] .p-meta {
+  order:1;
+  display:flex;
+  justify-content:space-between;
+  gap:6mm;
+  align-items:flex-start;
+  flex:0 0 15mm;
+  min-height:0;
+  margin:0 0 1mm;
+  padding:0 0 0 1mm;
+  color:#12233a;
+  font-size:12px;
+  line-height:1.4;
+  font-weight:600;
+  background:transparent;
+  white-space:nowrap;
+}
+.sheet.smart-page[class*='theme-'] .p-meta .meta-left {display:flex;flex-direction:column;gap:3px}
+
+.sheet.smart-page[class*='theme-'] .sheet-content {
+  order:2;
+  flex:1 1 0;
+  min-height:0;
+  padding:0 0 0;
+  counter-reset:qvsection;
+  display:flex;
+  flex-direction:column;
+}
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section,
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section:first-of-type,
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='1'],
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='2'] {
+  counter-increment:qvsection;
+  background:none;
+  border:0;
+  outline:0;
+  border-radius:0;
+  flex:var(--section-weight,1) 1 0;
+  min-height:0;
+  margin:10px 0 0;
+  padding:45px 0 6px;
+  box-shadow:none;
+}
+.sheet.smart-page[class*='theme-'] .sheet-section .section-pill {
+  position:absolute;
+  top:0;
+  left:0;
+  right:auto;
+  height:40px;
+  min-height:0;
+  min-width:0;
+  max-width:100%;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:9px;
+  padding:0;
+  border-radius:0;
+  box-shadow:none;
+  background:none;
+  font-size:15px;
+  font-weight:850;
+  line-height:1.18;
+  color:var(--qv-strong);
+  white-space:normal;
+}
+.sheet.smart-page[class*='theme-'] .sheet-section .section-pill::before {
+  content:counter(qvsection);
+  display:grid;
+  place-items:center;
+  flex:0 0 36px;
+  height:36px;
+  width:36px;
+  border-radius:50%;
+  background:var(--qv-number-bg);
+  color:#fff;
+  text-shadow:0 1px 0 rgba(0,0,0,.12);
+  font-size:21px;
+  font-weight:900;
+}
+.sheet.smart-page[class*='theme-'] .problem-grid {
+  flex:1;
+  min-height:0;
+  grid-template-columns:repeat(var(--columns,4),minmax(0,1fr));
+  grid-template-rows:repeat(var(--group-rows,1),minmax(0,1fr));
+  column-gap:6px;
+  row-gap:8px;
+  align-items:stretch;
+  padding:0 2mm;
+}
+.sheet.smart-page[class*='theme-'] .problem {
+  min-height:0;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  padding:4px 0;
+}
+.sheet.smart-page[class*='theme-'] .problem-id {
+  display:none;
+}
+.sheet.smart-page[class*='theme-'] .arithmetic {
+  font-family:var(--font-ui),sans-serif;
+  font-size:calc(18px * var(--smart-font-scale,1));
+  font-weight:600;
+  line-height:1.28;
+  color:#101b38;
+  max-width:100%;
+}
+/* The pale place-value pencil columns stay visible, even over decorative art. */
+.sheet.smart-page[class*='theme-'] .arith-row .arith-cell {
+  background:rgba(255,255,255,.25);
+  border-left:1px dashed rgba(106,127,154,.28);
+  box-shadow:inset 0 -1px 0 rgba(108,131,157,.17);
+}
+.sheet.smart-page[class*='theme-'] .arith-row .arith-cell:last-child {border-right:1px dashed rgba(106,127,154,.28)}
+.sheet.smart-page[class*='theme-'] .arith-row .answer-cell {background:rgba(245,249,255,.42);min-height:1.8em;height:1.8em}
+.sheet.smart-page[class*='theme-'] .arith-rule {height:2px;background:#0f1e3d}
+
+.sheet.smart-page[class*='theme-'] .memory-tip {
+  order:3;
+  flex:0 0 27mm;
+  min-height:0;
+  max-height:27mm;
+  height:27mm;
+  width:100%;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  margin:5mm 0 3mm;
+  padding:4mm 3mm 0 18mm;
+  border-radius:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+  color:#142441;
+}
+.sheet.smart-page[class*='theme-'] .memory-tip .tip-content {min-width:0;width:100%;padding:0;margin:0;line-height:1.3}
+.sheet.smart-page[class*='theme-'] .memory-tip h3 {font-size:15px;line-height:1.25;margin:0 0 2px;color:var(--qv-memo);font-weight:900}
+.sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {margin:0;font-size:12px;font-weight:600;line-height:1.48}
+.sheet.smart-page[class*='theme-'] .memory-tip .bulb,
+.sheet.smart-page[class*='theme-'] .memory-tip .small-star,
+.sheet.smart-page[class*='theme-'] .memory-tip .kid {display:none!important}
+.sheet.smart-page[class*='theme-'] .sheet-footer {order:4;bottom:3px;font-size:9px;color:rgba(38,63,102,.75)}
+
+/* Keep the first and final line of every illustration clear of text. */
+.sheet.smart-page.theme-space {padding-inline:24mm}
+.sheet.smart-page.theme-garden {padding-inline:25mm}
+.sheet.smart-page.theme-classic {padding-inline:20mm}
+.sheet.smart-page.cols-5 .arithmetic {font-size:14px}
+.sheet.smart-page.cols-5 .section-pill {font-size:13px}
+
+/* Theme thumbnails: actual miniature frame assets, not unrelated emoji. */
+.theme-thumb .theme-preview-image {height:100%;max-height:100%;max-width:100%;width:auto;object-fit:contain;display:block}
+.theme-thumb {overflow:hidden}
+.theme-thumb-classic {background:#e7f4ff}
+.theme-thumb-cute {background:#fff0f4}
+.theme-thumb-space {background:#eaf2ff}
+.theme-thumb-garden {background:#ebfbed}
+
+@media print {
+  .sheet.smart-page[class*='theme-'] {
+    width:194mm!important;
+    min-height:281mm!important;
+    height:281mm!important;
+    max-height:281mm!important;
+    padding-top:7mm;
+    padding-bottom:14mm;
+  }
+  .sheet.smart-page[class*='theme-'] .p-header {flex-basis:29mm}
+  .sheet.smart-page[class*='theme-'] .p-meta {flex-basis:13mm;font-size:11px}
+  .sheet.smart-page[class*='theme-'] .sheet-content .sheet-section {padding-top:40px}
+  .sheet.smart-page[class*='theme-'] .sheet-section .section-pill {height:36px;font-size:13px}
+  .sheet.smart-page[class*='theme-'] .sheet-section .section-pill::before {height:32px;width:32px;flex-basis:32px;font-size:17px}
+  .sheet.smart-page[class*='theme-'] .memory-tip {flex-basis:24mm;height:24mm;max-height:24mm;margin:3mm 0 3mm}
+  .sheet.smart-page[class*='theme-'] .memory-tip h3 {font-size:13px}
+  .sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {font-size:11px}
+  .sheet.smart-page[class*='theme-'] .heading-title {font-size:19px!important}
+  .sheet.smart-page[class*='theme-'] .arith-row .arith-cell {background-color:rgba(255,255,255,.3)}
+}
+
+/* Optical alignment validated against the three full-page reference frames.
+   The title must sit *inside* the illustrated banner, not above it. */
+.sheet.smart-page[class*='theme-'] .p-header {
+  flex-basis:55mm;
+  padding-top:22mm;
+}
+.sheet.smart-page[class*='theme-'] .p-header .heading-title {
+  font-size:27px;
+  line-height:1.18;
+  letter-spacing:-.8px;
+}
+.sheet.smart-page[class*='theme-'] .p-meta {font-size:13.5px}
+.sheet.smart-page[class*='theme-'] .sheet-section .section-pill {color:#172843;font-size:16px}
+.sheet.smart-page[class*='theme-'] .arithmetic {font-size:calc(23px * var(--smart-font-scale,1))}
+.sheet.smart-page[class*='theme-'].cols-4 .arithmetic {font-size:calc(20px * var(--smart-font-scale,1))}
+.sheet.smart-page[class*='theme-'].cols-5 .arithmetic {font-size:calc(16px * var(--smart-font-scale,1))}
+.sheet.smart-page[class*='theme-'] .memory-tip h3 {font-size:20px}
+.sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {font-size:15px;line-height:1.35}
+.sheet.smart-page[class*='theme-'] .memory-tip {padding-top:3mm}
+@media print {
+ .sheet.smart-page[class*='theme-'] .p-header {flex-basis:51mm;padding-top:20mm}
+ .sheet.smart-page[class*='theme-'] .p-header .heading-title {font-size:22px!important}
+ .sheet.smart-page[class*='theme-'] .p-meta {font-size:11.5px}
+ .sheet.smart-page[class*='theme-'] .arithmetic {font-size:calc(21px * var(--smart-font-scale,1))}
+ .sheet.smart-page[class*='theme-'].cols-4 .arithmetic {font-size:calc(18px * var(--smart-font-scale,1))}
+ .sheet.smart-page[class*='theme-'].cols-5 .arithmetic {font-size:calc(15px * var(--smart-font-scale,1))}
+ .sheet.smart-page[class*='theme-'] .memory-tip h3 {font-size:17px}
+ .sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {font-size:13px}
+}
+
+/* Per-artwork optical trims — the illustrations are independent frames. */
+.sheet.smart-page.theme-classic .p-header {padding-top:14mm}
+.sheet.smart-page.theme-space .memory-tip {padding-left:30mm;padding-right:10mm}
+.sheet.smart-page.theme-garden .memory-tip {
+  flex:0 0 37mm;
+  height:37mm;
+  max-height:37mm;
+  padding-left:14mm;
+  padding-right:10mm;
+  padding-top:7mm;
+}
+.sheet.smart-page.theme-garden .p-meta {
+  background:rgba(255,255,255,.92);
+  border-radius:18px;
+  padding:4px 9px;
+}
+@media print {
+ .sheet.smart-page.theme-classic .p-header {padding-top:13mm}
+ .sheet.smart-page.theme-garden .memory-tip {flex-basis:33mm;height:33mm;max-height:33mm}
+}
