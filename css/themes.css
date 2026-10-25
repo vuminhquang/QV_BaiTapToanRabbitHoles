@@ -317,3 +317,198 @@
  .sheet.smart-page.theme-classic .p-header {padding-top:13mm}
  .sheet.smart-page.theme-garden .memory-tip {flex-basis:33mm;height:33mm;max-height:33mm}
 }
+
+/* 2026-10-25: Safe content geometry for the transparent frame artwork.
+   Frame masks are not blank white margins: their nontransparent border/planets
+   start at about 19% of A4 width and the lower illustration starts at ~80%.
+   Do not lay out text using the outer 210mm canvas as if it were all writable. */
+.sheet.smart-page.theme-classic,
+.sheet.smart-page.theme-cute,
+.sheet.smart-page.theme-space,
+.sheet.smart-page.theme-garden {
+  --qv-safe-inline:22%;
+  --qv-exercise-start:27%;
+  --qv-exercise-end:78%;
+  --qv-memo-bottom:5.5%;
+  --qv-memo-height:8.6%;
+  padding:0!important;
+}
+.sheet.smart-page.theme-garden {
+  --qv-safe-inline:25%;
+  --qv-exercise-start:27%;
+  --qv-exercise-end:75.5%;
+  --qv-memo-bottom:9%;
+  --qv-memo-height:9%;
+}
+.sheet.smart-page.theme-classic {
+  --qv-safe-inline:22%;
+  --qv-exercise-start:27%;
+  --qv-exercise-end:78.5%;
+}
+.sheet.smart-page[class*='theme-'] > .p-header,
+.sheet.smart-page[class*='theme-'] > .p-meta,
+.sheet.smart-page[class*='theme-'] > .sheet-content,
+.sheet.smart-page[class*='theme-'] > .memory-tip {
+  position:absolute!important;
+  box-sizing:border-box;
+  z-index:1;
+  margin:0!important;
+  min-height:0!important;
+  max-height:none;
+  flex:none!important;
+}
+.sheet.smart-page[class*='theme-'] > .p-header {
+  top:5.5%;
+  left:17%;
+  right:17%;
+  width:auto;
+  height:10.5%;
+  padding:1% 0 0!important;
+  align-items:flex-start;
+  justify-content:center;
+}
+.sheet.smart-page.theme-garden > .p-header {top:6%;height:10%;padding-top:0!important}
+.sheet.smart-page.theme-classic > .p-header {top:4.2%;height:9.8%;padding-top:0!important}
+.sheet.smart-page[class*='theme-'] > .p-header .heading-title {
+  font-size:clamp(18px,2.2vw,27px);
+  line-height:1.22;
+  max-width:100%;
+  width:100%;
+  padding:0!important;
+  margin:0!important;
+  overflow-wrap:normal;
+}
+.sheet.smart-page[class*='theme-'] > .p-meta {
+  top:19.5%;
+  left:var(--qv-safe-inline);
+  right:var(--qv-safe-inline);
+  width:auto!important;
+  height:6%;
+  padding:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+  justify-content:space-between;
+  gap:7px;
+  align-items:flex-start;
+  font-size:11px;
+  line-height:1.4;
+  white-space:normal;
+}
+.sheet.smart-page[class*='theme-'] > .p-meta .meta-left {gap:2px}
+.sheet.smart-page[class*='theme-'] > .p-meta >span {white-space:nowrap}
+.sheet.smart-page[class*='theme-'] > .sheet-content {
+  top:var(--qv-exercise-start);
+  bottom:calc(100% - var(--qv-exercise-end));
+  left:var(--qv-safe-inline);
+  right:var(--qv-safe-inline);
+  width:auto!important;
+  height:auto!important;
+  padding:0!important;
+  display:flex;
+  min-height:0!important;
+  flex-direction:column;
+  gap:2px;
+}
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section,
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section:first-of-type,
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='1'],
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='2'] {
+  margin:0!important;
+  padding:36px 0 4px!important;
+  flex:var(--section-weight,1) 1 0!important;
+  overflow:visible;
+}
+.sheet.smart-page[class*='theme-'] .sheet-content .sheet-section .section-pill {
+  left:0; right:0; top:0;
+  width:100%;
+  max-width:100%;
+  height:33px;
+  font-size:clamp(10px,1.25vw,15px);
+  letter-spacing:-.3px;
+  white-space:normal;
+  font-weight:800;
+  line-height:1.22;
+  background:transparent;
+  gap:7px;
+}
+.sheet.smart-page[class*='theme-'] .sheet-section .section-pill::before {
+  width:30px; height:30px; flex-basis:30px;
+  font-size:17px;
+}
+.sheet.smart-page[class*='theme-'] .problem-grid {
+  grid-template-columns:repeat(var(--columns,4),minmax(0,1fr));
+  padding:0!important;
+  column-gap:4px;
+  row-gap:5px;
+}
+.sheet.smart-page[class*='theme-'] .problem {
+  justify-content:center;
+  min-width:0;
+  overflow:visible;
+}
+.sheet.smart-page[class*='theme-'] .arithmetic {
+  font-size:calc(19px * var(--smart-font-scale,1));
+  max-width:100%;
+}
+.sheet.smart-page[class*='theme-'].cols-4 .arithmetic {font-size:calc(16px * var(--smart-font-scale,1))}
+.sheet.smart-page[class*='theme-'].cols-5 .arithmetic {font-size:calc(12.7px * var(--smart-font-scale,1))}
+.sheet.smart-page[class*='theme-'] > .memory-tip {
+  left:26%;
+  right:26%;
+  bottom:var(--qv-memo-bottom);
+  width:auto!important;
+  height:var(--qv-memo-height)!important;
+  max-height:none!important;
+  padding:0!important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  color:#142441;
+}
+.sheet.smart-page.theme-garden > .memory-tip {left:23%;right:23%}
+.sheet.smart-page.theme-classic > .memory-tip {left:18%;right:18%}
+.sheet.smart-page[class*='theme-'] .memory-tip .tip-content {
+  min-width:0;
+  width:100%;
+  padding:0!important;
+  margin:0!important;
+}
+.sheet.smart-page[class*='theme-'] .memory-tip h3 {
+  margin:0 0 2px!important;
+  font-size:clamp(13px,1.35vw,16px);
+  line-height:1.22;
+}
+.sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {
+  margin:0;
+  font-size:clamp(11px,1.1vw,13px);
+  line-height:1.3;
+}
+.sheet.smart-page[class*='theme-'] > .sheet-footer {bottom:2.3%;z-index:2}
+.sheet.smart-page.theme-garden > .sheet-footer {bottom:1.2%}
+@media print {
+  .sheet.smart-page[class*='theme-'] {
+    padding:0!important;
+    width:194mm!important;
+    height:281mm!important;
+    min-height:281mm!important;
+    max-height:281mm!important;
+  }
+  .sheet.smart-page[class*='theme-'] > .p-header {top:5.5%;height:10%;padding-top:1%!important}
+  .sheet.smart-page.theme-classic > .p-header {top:4.2%;padding-top:0!important}
+  .sheet.smart-page[class*='theme-'] > .p-header .heading-title {font-size:21px!important}
+  .sheet.smart-page[class*='theme-'] > .p-meta {font-size:10px!important}
+  .sheet.smart-page[class*='theme-'] .sheet-content .sheet-section,
+  .sheet.smart-page[class*='theme-'] .sheet-content .sheet-section:first-of-type,
+  .sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='1'],
+  .sheet.smart-page[class*='theme-'] .sheet-content .sheet-section[data-rows='2'] {
+    padding:32px 0 3px!important;
+  }
+  .sheet.smart-page[class*='theme-'] .sheet-section .section-pill {font-size:12px}
+  .sheet.smart-page[class*='theme-'] .sheet-section .section-pill::before {width:27px;height:27px;flex-basis:27px;font-size:16px}
+  .sheet.smart-page[class*='theme-'] .arithmetic {font-size:calc(16.5px * var(--smart-font-scale,1))}
+  .sheet.smart-page[class*='theme-'].cols-4 .arithmetic {font-size:calc(14.5px * var(--smart-font-scale,1))}
+  .sheet.smart-page[class*='theme-'].cols-5 .arithmetic {font-size:calc(11px * var(--smart-font-scale,1))}
+  .sheet.smart-page[class*='theme-'] .memory-tip h3 {font-size:14px}
+  .sheet.smart-page[class*='theme-'] .memory-tip .theme-tip-text {font-size:11px}
+}
