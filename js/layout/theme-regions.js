@@ -10,7 +10,7 @@ export const THEME_REGIONS = Object.freeze({
     meta: {x:.225,y:.19,w:.55,h:.055},
     content: {x:.225,y:.273,w:.55,h:.515},
     memo: {x:.21,y:.845,w:.58,h:.075},
-    footer: {x:.43,y:.968,w:.14,h:.015},
+    footer: {x:.675,y:.897,w:.105,h:.014}, // Small page number, inside the empty right edge of the blue note.
     sections: {one:{x:.235,w:.53},consecutive:{x:.235,w:.53},zero:{x:.245,w:.51},normal:{x:.235,w:.53},multi:{x:.245,w:.51}}
   },
   cute: {
@@ -18,7 +18,7 @@ export const THEME_REGIONS = Object.freeze({
     meta: {x:.225,y:.192,w:.55,h:.055},
     content: {x:.23,y:.278,w:.54,h:.50},
     memo: {x:.235,y:.836,w:.53,h:.082},
-    footer: {x:.43,y:.971,w:.14,h:.013},
+    footer: {x:.66,y:.907,w:.10,h:.014}, // Keep away from the pink dashed lower rule.
     sections: {one:{x:.245,w:.51},consecutive:{x:.245,w:.51},zero:{x:.245,w:.51},normal:{x:.245,w:.51},multi:{x:.255,w:.49}}
   },
   space: {
@@ -36,11 +36,11 @@ export const THEME_REGIONS = Object.freeze({
     }
   },
   garden: {
-    header: {x:.215,y:.064,w:.57,h:.10},
+    header: {x:.295,y:.099,w:.41,h:.059},
     meta: {x:.25,y:.203,w:.50,h:.055},
     content: {x:.255,y:.288,w:.49,h:.47},
     memo: {x:.25,y:.83,w:.50,h:.085},
-    footer: {x:.43,y:.973,w:.14,h:.012},
+    footer: null, // Grass and illustrated footer fully occupy the bottom band.
     sections: {one:{x:.27,w:.46},consecutive:{x:.27,w:.46},zero:{x:.28,w:.44},normal:{x:.27,w:.46},multi:{x:.28,w:.44}}
   }
 });

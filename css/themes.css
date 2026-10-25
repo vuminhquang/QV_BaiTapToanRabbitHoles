@@ -583,3 +583,44 @@
   .sheet.smart-page.theme-space .memory-tip h3 {font-size:14px!important}
   .sheet.smart-page.theme-space .memory-tip .theme-tip-text {font-size:11px!important}
 }
+
+/* Art-bound optical typography correction (2026-10-25).
+   The garden's leaf-covered plank offers a narrower readable title area than
+   the generic banner. Keep the actual glyphs fully inside its clear center. */
+.sheet.smart-page.theme-garden > .p-header {
+  padding:0!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.sheet.smart-page.theme-garden > .p-header .heading {
+  width:100%!important;
+  max-width:100%!important;
+  padding:0!important;
+  margin:0!important;
+}
+.sheet.smart-page.theme-garden > .p-header .heading-title {
+  box-sizing:border-box;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:0 3px!important;
+  font-size:21px!important;
+  font-weight:900;
+  line-height:1.13!important;
+  letter-spacing:-.5px!important;
+  text-align:center!important;
+  text-wrap:balance;
+  overflow-wrap:normal;
+}
+/* The footer must never intersect any artwork border. Its position is set by
+   THEME_REGIONS; space/garden omit it because their bottom panels are artwork. */
+.sheet.smart-page.theme-footer-hidden > .sheet-footer {display:none!important}
+@media print {
+  .sheet.smart-page.theme-garden > .p-header {padding:0!important}
+  .sheet.smart-page.theme-garden > .p-header .heading-title {
+    font-size:17px!important;
+    line-height:1.13!important;
+    padding:0 2px!important;
+  }
+}
